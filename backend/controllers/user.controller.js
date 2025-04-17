@@ -6,6 +6,8 @@ import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
     try {
+        console.log('inside register controller');
+        
         const { fullname, email, phoneNumber, password, role } = req.body;
          
         if (!fullname || !email || !phoneNumber || !password || !role) {
@@ -81,7 +83,7 @@ export const login = async (req, res) => {
         const tokenData = {
             userId: user._id
         }
-        const token = await jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' });
+        const token =  jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' });
 
         user = {
             _id: user._id,
@@ -108,7 +110,7 @@ export const logout = async (req, res) => {
             success: true
         })
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 }
 export const updateProfile = async (req, res) => {
